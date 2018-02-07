@@ -1,4 +1,54 @@
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class LeetCode {
+
+    /**
+     * Given a string, find the length of the longest substring without repeating characters.
+     */
+    public static int lengthOfLongestSubstring(String s) {
+
+        String result = "";
+        String subString = "";
+        int i;
+        int j = 0;
+
+        while (j < s.length()) {
+            i = 0;
+            subString = "";
+            while (i < s.length() - j) {
+                if (subString.indexOf(s.charAt(j + i)) == -1) {
+                    subString = subString + s.charAt(j + i);
+                } else break;
+                i++;
+            }
+            if (result.length() < subString.length()) {
+                result = subString;
+                subString = "";
+            }
+            j++;
+        }
+        return result.length();
+    }
+
+    /**
+     * Given a string, find the length of the longest substring without repeating characters.
+     */
+    public static int lengthOfLongestSubstringS(String s) {
+        int n = s.length(), ans = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        for (int j = 0, i = 0; j < n; j++) {
+            if (map.containsKey(s.charAt(j))) {
+                i = Math.max(map.get(s.charAt(j)), i);
+            }
+            ans = Math.max(ans, j - i + 1);
+            map.put(s.charAt(j), j + 1);
+        }
+        return ans;
+
+    }
 
     /**
      * Given a 32-bit signed integer, reverse digits of an integer.
